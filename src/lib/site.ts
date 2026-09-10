@@ -3,12 +3,29 @@
  * Keeping these in one place means copy/URLs only ever change here.
  */
 
+const DEFAULT_SITE_URL = "https://www.mividadigital.co.uk";
+
+/**
+ * Resolve the public site URL. Vercel (and other hosts) can inject an empty
+ * string for an unset env var, which would break `new URL(...)` at build time.
+ * We trim, validate, and fall back to the canonical URL if anything is off.
+ */
+function resolveSiteUrl(): string {
+  const candidate = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (!candidate) return DEFAULT_SITE_URL;
+  try {
+    return new URL(candidate).toString().replace(/\/$/, "");
+  } catch {
+    return DEFAULT_SITE_URL;
+  }
+}
+
 export const site = {
   name: "Mivida Digital",
   tagline: "Smarter digital solutions for serious businesses",
   description:
     "Mivida Digital builds professional websites, custom software and digital services for small businesses and SMEs across the North West and nationwide.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mividadigital.co.uk",
+  url: resolveSiteUrl(),
   locale: "en_GB",
   contact: {
     email: "hello@mividadigital.co.uk",
