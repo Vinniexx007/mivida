@@ -1,0 +1,44 @@
+{
+  "name": "mivida-digital",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mivida Digital marketing site — smarter digital solutions for serious businesses.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --run --coverage",
+    "test:e2e": "playwright test",
+    "lighthouse": "npm run build && lhci autorun"
+  },
+  "dependencies": {
+    "next": "^16.3.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "resend": "^4.6.0"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.15.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^4.4.0",
+    "@vitest/coverage-v8": "^3.1.0",
+    "eslint": "^9.25.0",
+    "eslint-config-next": "^16.3.4",
+    "fast-check": "^4.1.0",
+    "jsdom": "^26.1.0",
+    "playwright": "^1.52.0",
+    "@playwright/test": "^1.52.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.1.0",
+    "wcag-contrast": "^3.0.0"
+  }
+}

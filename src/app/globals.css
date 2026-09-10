@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Mivida Digital — Brand design tokens
+   Colours, fonts and radii live here so brand values sit in one place.
+   Fonts are provided by next/font via the --font-* CSS variables set on <body>.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Brand palette */
+  --color-navy: #051a3e;
+  --color-navy-800: #0b264f;
+  --color-navy-700: #123061;
+  --color-amber: #f4a025;
+  --color-amber-600: #d98910;
+  --color-amber-300: #f9c877;
+  --color-white: #ffffff;
+  --color-mist: #f3f6fa;
+  --color-slate: #526174;
+  --color-slate-300: #94a2b3;
+
+  /* Typography */
+  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Layout */
+  --radius-brand: 0.75rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  min-width: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-white);
+  color: var(--color-navy);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Visible focus ring for keyboard users across the site. */
+:focus-visible {
+  outline: 3px solid var(--color-amber);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

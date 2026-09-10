@@ -1,0 +1,60 @@
+/**
+ * Central site configuration — contact details, navigation and social links.
+ * Keeping these in one place means copy/URLs only ever change here.
+ */
+
+export const site = {
+  name: "Mivida Digital",
+  tagline: "Smarter digital solutions for serious businesses",
+  description:
+    "Mivida Digital builds professional websites, custom software and digital services for small businesses and SMEs across the North West and nationwide.",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mividadigital.co.uk",
+  locale: "en_GB",
+  contact: {
+    email: "hello@mividadigital.co.uk",
+    phone: "+44 7424 158513",
+    phoneHref: "tel:+447424158513",
+    whatsapp: "https://wa.me/447424158513",
+    location: "North West, UK",
+  },
+  hours: [
+    { day: "Monday – Friday", time: "8am – 7pm" },
+    { day: "Saturday", time: "9am – 1pm" },
+  ],
+} as const;
+
+export const nav: ReadonlyArray<{ label: string; href: string }> = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+export type SocialPlatform = "facebook" | "instagram" | "x" | "whatsapp";
+
+export const socials: ReadonlyArray<{
+  platform: SocialPlatform;
+  label: string;
+  href: string;
+}> = [
+  {
+    platform: "facebook",
+    label: "Mivida Digital on Facebook",
+    href: "https://facebook.com/mividadigital",
+  },
+  {
+    platform: "instagram",
+    label: "Mivida Digital on Instagram",
+    href: "https://instagram.com/mividadigital",
+  },
+  {
+    platform: "x",
+    label: "Mivida Digital on X",
+    href: "https://x.com/mividadigital",
+  },
+  {
+    platform: "whatsapp",
+    label: "Message Mivida Digital on WhatsApp",
+    href: "https://wa.me/447424158513",
+  },
+];
