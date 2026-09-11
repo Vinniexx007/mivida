@@ -7,6 +7,7 @@ import {
   enquiryOptions,
 } from "@/lib/contact-form";
 import { submitContact, type ContactState } from "@/app/contact/actions";
+import { site } from "@/lib/site";
 import { Button } from "./Button";
 
 const initialState: ContactState = { status: "idle" };
@@ -95,7 +96,30 @@ export function ContactForm() {
           role="alert"
           className="rounded-[--radius-brand] border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700"
         >
-          {state.message}
+          {state.reason === "send-failed" ? (
+            <>
+              Sorry — we couldn&apos;t send that just now. Please try again, or
+              reach us on{" "}
+              <a
+                href={site.contact.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold underline underline-offset-2 hover:text-red-900"
+              >
+                WhatsApp
+              </a>{" "}
+              or{" "}
+              <a
+                href={`mailto:${site.contact.email}`}
+                className="font-semibold underline underline-offset-2 hover:text-red-900"
+              >
+                email
+              </a>
+              .
+            </>
+          ) : (
+            state.message
+          )}
         </p>
       ) : null}
 

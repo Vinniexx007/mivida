@@ -41,6 +41,8 @@ describe("submitContact server action", () => {
     expect(state.message).toMatch(/couldn't send/i);
     // A transport failure is not a field-validation failure.
     expect(state.errors).toBeUndefined();
+    // The UI relies on this discriminator to render WhatsApp/email links.
+    expect(state.reason).toBe("send-failed");
   });
 
   it("surfaces a safe, user-friendly message that leaks no provider details", async () => {

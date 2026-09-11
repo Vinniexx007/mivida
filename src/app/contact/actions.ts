@@ -11,6 +11,11 @@ export type ContactState = {
   status: "idle" | "success" | "error";
   message?: string;
   errors?: ContactFieldErrors;
+  /**
+   * Distinguishes a send/transport failure from a validation failure so the UI
+   * can offer alternative contact channels (WhatsApp / email) as links.
+   */
+  reason?: "send-failed";
 };
 
 export async function submitContact(
@@ -38,6 +43,7 @@ export async function submitContact(
   if (!result.ok) {
     return {
       status: "error",
+      reason: "send-failed",
       message:
         "Sorry — we couldn't send that just now. Please try again, or reach us on WhatsApp or email.",
     };
