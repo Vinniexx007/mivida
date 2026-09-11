@@ -13,15 +13,18 @@ const data: ContactFormData = {
 };
 
 describe("sendContactEnquiry — mock path", () => {
-  const original = process.env.RESEND_API_KEY;
+  const originalKey = process.env.RESEND_API_KEY;
+  const originalNodeEnv = process.env.NODE_ENV;
 
   beforeEach(() => {
     vi.resetModules();
   });
 
   afterEach(() => {
-    process.env.RESEND_API_KEY = original;
+    process.env.RESEND_API_KEY = originalKey;
+    vi.stubEnv("NODE_ENV", originalNodeEnv ?? "test");
     vi.restoreAllMocks();
+    vi.unstubAllEnvs();
   });
 
   it('short-circuits to a mocked send when RESEND_API_KEY is "test"', async () => {
@@ -31,11 +34,28 @@ describe("sendContactEnquiry — mock path", () => {
     expect(result).toEqual({ ok: true, mocked: true });
   });
 
-  it("also mocks when the key is unset", async () => {
+  it("mocks when the key is unset outside production (dev/CI)", async () => {
     delete process.env.RESEND_API_KEY;
+    vi.stubEnv("NODE_ENV", "development");
     const { sendContactEnquiry } = await import("./email");
     const result = await sendContactEnquiry(data);
     expect(result).toEqual({ ok: true, mocked: true });
+  });
+
+  it("errors gracefully (no false success) when the key is missing in production", async () => {
+    delete process.env.RESEND_API_KEY;
+    vi.stubEnv("NODE_ENV", "production");
+    const { sendContactEnquiry } = await import("./email");
+    const result = await sendContactEnquiry(data);
+    expect(result.ok).toBe(false);
+  });
+
+  it("errors gracefully when the key is blank/whitespace in production", async () => {
+    process.env.RESEND_API_KEY = "   ";
+    vi.stubEnv("NODE_ENV", "production");
+    const { sendContactEnquiry } = await import("./email");
+    const result = await sendContactEnquiry(data);
+    expect(result.ok).toBe(false);
   });
 });
 

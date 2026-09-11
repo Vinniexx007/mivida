@@ -67,16 +67,27 @@ function renderHtml(data: ContactFormData): string {
 /**
  * Sends a contact enquiry via Resend.
  *
- * When RESEND_API_KEY is unset or "test", we short-circuit to a mock path and
- * never hit the network — used in local dev and CI so tests/builds stay offline.
+ * Mock path (offline, no network): used only outside production so local dev
+ * and CI stay offline. It triggers when the key is the literal "test", or when
+ * the key is unset in a non-production environment.
+ *
+ * In production, a missing/blank key is a real misconfiguration — we return a
+ * graceful error instead of a false success so the enquiry is never silently
+ * dropped and the UI can point the visitor to WhatsApp/email.
  */
 export async function sendContactEnquiry(
   data: ContactFormData,
 ): Promise<SendResult> {
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const isProduction = process.env.NODE_ENV === "production";
 
-  if (!apiKey || apiKey === "test") {
+  if (apiKey === "test" || (!apiKey && !isProduction)) {
     return { ok: true, mocked: true };
+  }
+
+  if (!apiKey) {
+    // Production with no configured key: fail gracefully, don't fake success.
+    return { ok: false, error: "Email service is not configured." };
   }
 
   try {
