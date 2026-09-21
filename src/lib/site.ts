@@ -57,17 +57,17 @@ export const socials: ReadonlyArray<{
   {
     platform: "facebook",
     label: "Mivida Digital on Facebook",
-    href: "https://facebook.com/mividadigital",
+    href: "https://www.facebook.com/mividadigitalUK",
   },
   {
     platform: "instagram",
     label: "Mivida Digital on Instagram",
-    href: "https://instagram.com/mividadigital",
+    href: "https://www.instagram.com/mividadigitaluk/",
   },
   {
     platform: "x",
     label: "Mivida Digital on X",
-    href: "https://x.com/mividadigital",
+    href: "https://x.com/mividadigitaluk",
   },
   {
     platform: "whatsapp",
