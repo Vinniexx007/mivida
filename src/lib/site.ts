@@ -11,7 +11,7 @@ const DEFAULT_SITE_URL = "https://www.mividadigital.co.uk";
  * We trim, validate, and fall back to the canonical URL if anything is off.
  */
 function resolveSiteUrl(): string {
-  const candidate = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const candidate = process.env.SITE_URL?.trim();
   if (!candidate) return DEFAULT_SITE_URL;
   try {
     return new URL(candidate).toString().replace(/\/$/, "");

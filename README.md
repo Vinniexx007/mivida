@@ -27,7 +27,7 @@ npm run dev                  # http://localhost:3000
 | Variable               | Required | Description                                               |
 | ---------------------- | -------- | --------------------------------------------------------- |
 | `RESEND_API_KEY`       | Yes      | Resend API key. `test` (or unset) uses the offline mock.  |
-| `NEXT_PUBLIC_SITE_URL` | Yes      | Public site URL, e.g. `https://www.mividadigital.co.uk`.  |
+| `SITE_URL`             | Yes      | Site URL, e.g. `https://www.mividadigital.co.uk`.         |
 | `CONTACT_FROM_EMAIL`   | Optional | Sender address — must be verified in Resend.              |
 | `CONTACT_TO_EMAIL`     | Optional | Where enquiries are delivered (defaults to the hello@ inbox). |
 

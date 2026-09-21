@@ -35,7 +35,7 @@ export default defineConfig({
     timeout: 180_000,
     env: {
       RESEND_API_KEY: "test",
-      NEXT_PUBLIC_SITE_URL: baseURL,
+      SITE_URL: baseURL,
     },
   },
 });
