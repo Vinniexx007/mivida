@@ -1,15 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { nav, site } from "@/lib/site";
+import { legalNav } from "@/lib/legal";
 import { SocialIcons } from "./SocialIcons";
+import { CookieSettingsButton } from "./consent/CookieSettingsButton";
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-navy text-white/80">
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-3">
-        <div>
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="lg:col-span-1">
           <Link href="/" aria-label={`${site.name} — home`}>
             <Image
               src="/brand/logo-transparent.png"
@@ -69,6 +71,27 @@ export function Footer() {
             <li className="pt-2 text-white/60">Free quote — reply within 24 hours.</li>
           </ul>
         </div>
+
+        <nav aria-label="Legal">
+          <h2 className="font-heading text-sm font-semibold uppercase tracking-widest text-white">
+            Legal
+          </h2>
+          <ul className="mt-4 space-y-2 text-sm">
+            {legalNav.map(({ label, href }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="transition-colors hover:text-amber-300"
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <CookieSettingsButton />
+            </li>
+          </ul>
+        </nav>
       </div>
 
       <div className="border-t border-white/10">

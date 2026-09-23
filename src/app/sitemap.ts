@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { site } from "@/lib/site";
+import { legalNav } from "@/lib/legal";
 
 /**
  * Generates /sitemap.xml at build time. Uses the canonical site URL from the
@@ -18,6 +19,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/services", changeFrequency: "monthly", priority: 0.8 },
     { path: "/about", changeFrequency: "monthly", priority: 0.6 },
     { path: "/contact", changeFrequency: "yearly", priority: 0.5 },
+    ...legalNav.map((entry) => ({
+      path: new URL(entry.href, site.url).pathname,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    })),
   ];
 
   return routes.map(({ path, changeFrequency, priority }) => ({

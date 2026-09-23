@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 import { site } from "@/lib/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ConsentProvider } from "@/components/consent/ConsentProvider";
+import { Analytics } from "@/components/consent/Analytics";
+import { CookieBanner } from "@/components/consent/CookieBanner";
+import { PageviewTracker } from "@/components/consent/PageviewTracker";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -80,17 +85,24 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-navy focus:px-4 focus:py-2 focus:text-white"
-        >
-          Skip to main content
-        </a>
-        <Header />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <ConsentProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-navy focus:px-4 focus:py-2 focus:text-white"
+          >
+            Skip to main content
+          </a>
+          <Header />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <CookieBanner />
+          <Analytics />
+          <Suspense fallback={null}>
+            <PageviewTracker />
+          </Suspense>
+        </ConsentProvider>
       </body>
     </html>
   );
